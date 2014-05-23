@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Notification Jquery Plugin</title>
+	<link type="text/css" rel="stylesheet" href="./demo/normalize.css" media="screen">
+	<link type="text/css" rel="stylesheet" href="./demo/demo.css" media="screen">
+	<link type="text/css" rel="stylesheet" href="./demo/prism.css" media="screen">
+	<link type="text/css" rel="stylesheet" href="./dist/hoopear.min.css" media="screen">
+</head>
+<body>
+<style>#forkongithub{width: auto; position: relative; display:block; float: none} #forkongithub a{background:#333;color:#fff;text-decoration:none;font-family:arial, sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;display: block}#forkongithub a:hover{background:#F4543C;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:fixed;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/davigmacode/hoopear" target="_blank">Fork me on GitHub</a></span>
+<div class="wrapper">
+	<div class="header">
+		<h1>Hoopear.js</h1>
+		<h3>Modal Dialog, Notification, and Blocking Element in One Library</h3>
+		<h3>Lightweight js and css only less than 8KB minified</h3>
+		<a class="btn btn-download" href="https://github.com/davigmacode/hoopear/zipball/master" target="_blank">download</a>
+	</div>
+	<div class="container">
+		<div class="title"><h1>Usage</h1></div>
+		<p>Include this to your project, jquery is not required..</p>
+		<pre><code class="language-markup">&lt;link type="text/css" rel="stylesheet" href="hoopear.css"&gt;</code><code class="language-markup">&lt;script type="text/javascript" src="hoopear.js"&gt;</code></pre>
+		<div class="title"><h1>Dialog</h1></div>
+		<div class="playground">
+			<a href="#" id="act-dialog-confirm" class="btn">Confirm Dialog</a>
+			<pre><code class="language-javascript">hoopear.dialog({
+	title : "Confirmation",
+	message : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat ??",
+	buttons : ["No", "Yes"],
+	callback : function (result) {
+		hoopear.note("You have clicked " + result);
+	}
+});</code></pre>
+			<a href="#" id="act-dialog-alert" class="btn">Alert Dialog</a>
+			<pre><code class="language-javascript">hoopear.dialog({
+	title : "Alert",
+	message: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.",
+	buttons: false
+});</code></pre>
+			<a href="#" id="act-dialog-custom" class="btn">Custom Dialog</a>
+			<pre><code class="language-javascript">hoopear.dialog({
+	message : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+	width : "550px",
+	buttons : {
+		"Yes" : function () {
+			hoopear.note({message: "You have clicked <b>Yes</b>..", type: "success"});
+		},
+		"No" : function() {
+			hoopear.note({message: "You have clicked <b>No</b>..", type: "error"});
+		},
+		"Cancel" : function() {
+			hoopear.note({message: "You have clicked <b>Cancel</b>.."});
+		}
+	}
+});</code></pre>
+		</div>
+		<div class="title"><h1>Notification</h1></div>
+		<div id="main" class="playground main">
+			<a href="#" id="act-note-default" class="btn">Default Message</a>
+			<pre><code class="language-javascript">hoopear.note("You have a new default message!");</code></pre>
+			<a href="#" id="act-note-info" class="btn">Info Message</a>
+			<pre><code class="language-javascript">hoopear.note({
+	message: "You have a new info message!",
+	type: "info"
+});</code></pre>
+			<a href="#" id="act-note-success" class="btn">Success Message</a>
+			<pre><code class="language-javascript">hoopear.note({
+	message: "You have a new success message!",
+	type: "success"
+});</code></pre>
+			<a href="#" id="act-note-warning" class="btn">Warning Message</a>
+			<pre><code class="language-javascript">hoopear.note({
+	message: "You have a new warning message!",
+	type: "warning"
+});</code></pre>
+			<a href="#" id="act-note-error" class="btn">Error Message</a>
+			<pre><code class="language-javascript">hoopear.note({
+	message: "You have a new error message!",
+	type: "error"
+});</code></pre>
+			<a href="#" id="act-note-long" class="btn">Long Message</a>
+			<pre><code class="language-javascript">hoopear.note("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.");</code></pre>
+			<a href="#" id="act-note-inline" class="btn">Inline Message</a>
+			<pre><code class="language-javascript">hoopear.note({
+	message: "You have a new warning inline message with custom timeout and insert method!",
+	container: "#note-inline",
+	maxItems : 1, // items number in queue
+	prepend: true, // insert method to container if false mean append
+	timeout: 5000
+});</code></pre>
+			<div id="note-inline"></div>
+		</div>
+		<div class="title"><h1>Block Element</h1></div>
+		<div class="playground">
+			<a href="#" id="act-block-page" class="btn">Page Block</a>
+			<pre><code class="language-javascript">hoopear.block({closeable: true});</code></pre>
+			<a href="#" id="act-block-content" class="btn">Content Block</a>
+			<pre><code class="language-javascript">hoopear.block({container: '.main'}); // see at the notification section</code></pre>
+			<a href="#" id="act-block-remove" class="btn">Remove Block</a>
+			<pre><code class="language-javascript">hoopear.unblock();</code></pre>
+		</div>
+		<div class="title"><h1>Browser Support</h1></div>
+		<p>Tested and work perfectly on latest Firefox, Opera, and Google Chrome. It seem doesn't work perfectly on ie9, but should work in many others.</p>
+		<div class="title"><h1>TO DO</h1></div>
+		<ul>
+			<li>Add prompt and inline dialog</li>
+			<li>Add onclick callback on block element function</li>
+			<li>Add float notification and dialog feature</li>
+			<li>Complete the documentation</li>
+			<li>More browser support</li>
+		</ul>
+		<div class="title"><h1>License</h1></div>
+		<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+	</div> <!-- /.container -->
+</div>
+<div class="footer">
+	at this point i hope you're not noticed my bad english :)<br>
+	&copy 2014 hoopear.js developed by <a href="https://github.com/davigmacode" target="_blank">davigmacode</a>.
+</div>
+<script type="text/javascript" src="./demo/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="./demo/prism.js" charset="UTF-8"></script>
+<script type="text/javascript" src="./dist/hoopear.min.js" charset="UTF-8"></script>
+<script type="text/javascript">
+$(function() {
+
+	$("#act-dialog-confirm").on('click', function(e) {
+		e.preventDefault();
+		hoopear.dialog({
+			title : "Confirmation",
+			message : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat ??",
+			buttons : ["No", "Yes"],
+			callback : function (result) {
+				hoopear.note("You have clicked " + result);
+			}
+		});
+	});
+
+	$("#act-dialog-alert").on('click', function(e) {
+		e.preventDefault();
+		hoopear.dialog({
+			title : "Alert",
+			message: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.",
+			buttons: false
+		});
+	});
+
+	$("#act-dialog-custom").on('click', function(e) {
+		e.preventDefault();
+		hoopear.dialog({
+			message : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.",
+			width : "550px",
+			buttons : {
+				"Yes" : function () {
+					hoopear.note({message: "You have clicked <b>Yes</b>..", type: "success"});
+				},
+				"No" : function() {
+					hoopear.note({message: "You have clicked <b>No</b>..", type: "error"});
+				},
+				"Cancel" : function() {
+					hoopear.note({message: "You have clicked <b>Cancel</b>.."});
+				}
+			}
+		});
+	});
+
+	$("#act-note-default").on('click', function(e) {
+		e.preventDefault();
+		hoopear.note("You have a new default message!");
+	});
+
+	$("#act-note-info").on('click', function(e) {
+		e.preventDefault();
+		hoopear.note({message: "You have a new info message!", type: "info"});
+	});
+
+	$("#act-note-success").on('click', function(e) {
+		e.preventDefault();
+		hoopear.note({message: "You have a new success message!", type: "success"});
+	});
+
+	$("#act-note-warning").on('click', function(e) {
+		e.preventDefault();
+		hoopear.note({message: "You have a new warning message!", type: "warning"});
+	});
+
+	$("#act-note-error").on('click', function(e) {
+		e.preventDefault();
+		hoopear.note({message: "You have a new error message!", type: "error"});
+	});
+
+	$("#act-note-long").on('click', function(e) {
+		e.preventDefault();
+		hoopear.note("Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.");
+	});
+
+	$("#act-note-inline").on('click', function(e) {
+		e.preventDefault();
+		hoopear.note({
+			message: "You have a new warning inline message with custom timeout and insert method!",
+			container: "#note-inline",
+			maxItems : 1,
+			prepend: true,
+			timeout: 5000
+		});
+	});
+
+	$("#act-block-page").on('click', function(e) {
+		e.preventDefault();
+		hoopear.block({closeable: true});
+	});
+
+	$("#act-block-content").on('click', function(e) {
+		e.preventDefault();
+		hoopear.block({container: '.main', message: 'please wait..'});
+	});
+
+	$("#act-block-remove").on('click', function(e) {
+		e.preventDefault();
+		hoopear.unblock();
+	});
+});
+</script>
+</body>
+</html>
