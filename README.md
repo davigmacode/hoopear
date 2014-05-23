@@ -1,4 +1,4 @@
-Hoopear.js
+hoopear
 =======
 
-Lightweight Modal Dialog, Notification, and Blocking Element in One Library.. [Demo](http://davigmacode.github.io/hoopear/)
+modal dialog and notification system
