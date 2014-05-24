@@ -34,6 +34,15 @@
 		hoopear.note("You have clicked " + result);
 	}
 });</code></pre>
+			<a href="#" id="act-dialog-prompt" class="btn">Prompt Dialog</a>
+			<pre><code class="language-javascript">hoopear.dialog({
+	title : "Confirmation",
+	message : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat ??",
+	buttons : ["No", "Yes"],
+	callback : function (result) {
+		hoopear.note("You have clicked " + result);
+	}
+});</code></pre>
 			<a href="#" id="act-dialog-alert" class="btn">Alert Dialog</a>
 			<pre><code class="language-javascript">hoopear.dialog({
 	title : "Alert",
@@ -122,7 +131,7 @@
 </div>
 <script type="text/javascript" src="./demo/jquery-1.8.3.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="./demo/prism.js" charset="UTF-8"></script>
-<script type="text/javascript" src="./dist/hoopear.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="./dev/hoopear.js" charset="UTF-8"></script>
 <script type="text/javascript">
 $(function() {
 
@@ -134,6 +143,22 @@ $(function() {
 			buttons : ["No", "Yes"],
 			callback : function (result) {
 				hoopear.note("You have clicked " + result);
+			}
+		});
+	});
+
+	$("#act-dialog-prompt").on('click', function(e) {
+		e.preventDefault();
+		hoopear.dialog({
+			message : "Enter your username and password:",
+			fields :
+				'<input name="username" type="text" placeholder="Username" required />'+
+				'<input name="password" type="password" placeholder="Password" required />',
+			buttons : ["Close", "Submit"],
+			callback : function (btn, data) {
+				hoopear.note("You have clicked <b>" + btn + "</b>" +
+							 "<br> Username = " + data.username +
+							 "<br> Password = " + data.password);
 			}
 		});
 	});

@@ -1,3 +1,11 @@
+[class^='hoopear-'],
+[class^='hoopear-'] *,
+[class^='hoopear-'] *:before,
+[class^='hoopear-'] *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 .hoopear-overlay,
 .hoopear-block {
   position: fixed;
@@ -146,6 +154,13 @@
   position: relative;
   padding: 20px;
   font-size: 18px;
+}
+.hoopear-dialog-form input[type="text"],
+.hoopear-dialog-form input[type="password"] {
+  display: block;
+  width: 100%;
+  padding: 5px 7px;
+  margin-top: 10px;
 }
 .hoopear-dialog-footer {
   display: table;

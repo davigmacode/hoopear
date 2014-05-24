@@ -21,6 +21,19 @@
             element = document.createElement(wrapper);
         return element;
     },
+    /*Creates a new element - By Jamin Szczesny*/
+    /*_new = function (args) {
+	    ele = document.createElement(args.node);
+	    delete args.node;
+	    for(x in args){
+	        if(typeof ele[x]==='string'){
+	            ele[x] = args[x];
+	        }else{
+	            ele.setAttribute(x, args[x]);
+	        }
+	    }
+	    return ele;
+	},*/
     _getElement = function (selector) {
         return document.querySelector(selector);
         //return document.getElementById(id);
@@ -131,21 +144,16 @@
 
     dialog = (function () {
 
-        var config, defaults, elContainer, elHeader,
+        var config, defaults, elContainer, elHeader, elForm,
             elTitle, elCross, elBody, elFooter, elOverlay,
             fnInit, fnCreate, fnClose;
 
         defaults = {
             width : "400px",
             message : "",
-            /*type : "alert",
-            title : {
-                alert : "Alert",
-                confirm : "Confirmation",
-                prompt : "Prompt"
-            },*/
             title : false,
             cross : true,
+            fields : false,
             buttons : ["close"],
             wrapper : {
                 overlay : { tag: "div", klass: "hoopear-overlay" },
@@ -153,8 +161,9 @@
                 header : { tag: "div", klass: "hoopear-dialog-header" },
                 title : { tag: "h3", klass: "hoopear-dialog-title" },
                 body : { tag: "div", klass: "hoopear-dialog-body" },
+                form : { tag: "form", klass: "hoopear-dialog-form"},
                 footer : { tag: "div", klass: "hoopear-dialog-footer" },
-                cross : { tag: "button", klass: "hoopear-dialog-cross", content: "&times;" },
+                cross : { tag: "a", klass: "hoopear-dialog-cross", content: "&times;" },
                 button : { tag: "a", klass: "hoopear-dialog-button" }
             }
         };
@@ -185,7 +194,6 @@
 
             if (config.title !== false)
             {
-                //config.wrapper.title.content = ((typeof config.title === "string") ? config.title : config.title[config.type]);
                 config.wrapper.title.content = config.title;
                 elTitle = _createElement(config.wrapper.title);
                 elHeader = _createElement(config.wrapper.header);
@@ -203,6 +211,14 @@
 
             config.wrapper.body.content = config.message;
             elBody = _createElement(config.wrapper.body);
+
+            if (config.fields !== false)
+            {
+            	elForm = _createElement(config.wrapper.form);
+            	elForm.innerHTML = config.fields;
+            	_appendElement(elBody, elForm);
+            }
+
             _appendElement(elContainer, elBody);
 
             //--------------------------------------------------------------------------------
@@ -211,24 +227,12 @@
             if (config.buttons !== false)
             {
                 elFooter = _createElement(config.wrapper.footer);
-                /*for(i=0; i<config.buttons.length; i++) {
-                    btnConfig = config.wrapper.button;
-                    if (typeof config.buttons[i] === "object")
-                        btnConfig = _extend({}, btnConfig, config.buttons[i]);
-                    else btnConfig.caption = config.buttons[i];
-                    btnConfig.content = btnConfig.caption;
-                    btn = _createElement(btnConfig);
-                    _on(btn, "click", fnClose);
-                    if(typeof btnConfig.action == "function")
-                        _on(btn, "click", btnConfig.action);
-                    _appendElement(elFooter, btn);
-                }*/
 
                 var btnConfig = config.buttons,
                     btnCaption, btnCallback,
                     btnPrep, btn;
 
-                for(btnCaption in btnConfig) {
+                for (btnCaption in btnConfig) {
                     btnPrep = config.wrapper.button;
                     btnCallback = btnConfig[btnCaption];
                     // set button caption
@@ -264,7 +268,19 @@
             var source = event.target || event.srcElement;
             if (_hasClass(source, config.wrapper.button.klass))
                 if (typeof config.callback == "function")
-                    config.callback(source.innerHTML);
+                	if (config.fields !== false)
+		            {
+		            	var data = {},
+		            		fields = elForm.elements,
+		            		i;
+
+			            for (i=0; i<fields.length; i++)
+			            	data[fields[i].name] = fields[i].value;
+
+			            config.callback(source.innerHTML, data);
+			        }
+			        else
+                    	config.callback(source.innerHTML);
             else
                 return false;
         };
@@ -302,7 +318,8 @@
         // create item
         fnCreate = function (options) {
             //extend config with global config
-            var config = _extend({}, defaults, options), elParent;
+            var config = _extend({}, defaults, options),
+            	elParent, currItem, lastItem;
 
             //check note type
             config.type = ((typeof config.type === "string" && config.type !== "") ? " " + config.type : "");
@@ -325,23 +342,22 @@
                 elParent = elParentInline;
             }
 
-            var currItems = elParent.getElementsByClassName(config.wrapper.items.klass).length;
-            //console.log(currItems);
+            currItem = elParent.getElementsByClassName(config.wrapper.items.klass).length;
+            //console.log(currItem);
 
             if (config.prepend)
             {
-                if (currItems >= config.maxItems)
-                    //_removeElement(elParent.lastChild);
-                fnClose(elParent.lastChild, -1);
+                lastItem = elParent.lastChild;
                 _prependElement(elParent, elChild);
             }
             else
             {
-                if (currItems >= config.maxItems)
-                    //_removeElement(elParent.firstChild);
-                fnClose(elParent.firstChild, -1);
+                lastItem = elParent.firstChild;
                 _appendElement(elParent, elChild);
             }
+
+            if (currItem >= config.maxItems)
+                fnClose(lastItem, -1);
 
             //add animation class
             _show(elChild);
