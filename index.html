@@ -36,11 +36,15 @@
 });</code></pre>
 			<a href="#" id="act-dialog-prompt" class="btn">Prompt Dialog</a>
 			<pre><code class="language-javascript">hoopear.dialog({
-	title : "Confirmation",
-	message : "Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat ??",
-	buttons : ["No", "Yes"],
-	callback : function (result) {
-		hoopear.note("You have clicked " + result);
+	message : "Enter your username and password:",
+	fields :
+		'<input name="username" type="text" placeholder="Username" required />'+
+		'<input name="password" type="password" placeholder="Password" required />',
+	buttons : ["Close", "Submit"],
+	callback : function (btn, data) {
+		hoopear.note("You have clicked <b>" + btn + "</b>" +
+					 "<br> Username = " + data.username +
+					 "<br> Password = " + data.password);
 	}
 });</code></pre>
 			<a href="#" id="act-dialog-alert" class="btn">Alert Dialog</a>
